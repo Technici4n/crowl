@@ -32,7 +32,6 @@ const TEXTURE_PACKER_CONFIG: TexturePackerConfig = TexturePackerConfig {
 pub fn load_textures<F, R>(factory: &mut F) -> (gfx::handle::ShaderResourceView<R, [f32; 4]>, TextureRegistry)
     where F: gfx::Factory<R>, R: gfx::Resources
 {
-    use ::ColorFormat;
     use self::image::{ImageBuffer, GenericImage};
     use self::texture_packer::TexturePacker;
     use self::texture_packer::importer::ImageImporter;
@@ -45,6 +44,9 @@ pub fn load_textures<F, R>(factory: &mut F) -> (gfx::handle::ShaderResourceView<
         "dirt",
         "grass_side",
         "grass_top",
+        "wood_side",
+        "wood_top",
+        "leaves",
     ];
     for &tex in &textures {
         let path = format!("assets/{}.png", tex);
@@ -62,7 +64,7 @@ pub fn load_textures<F, R>(factory: &mut F) -> (gfx::handle::ShaderResourceView<
     let mut buffer = ImageBuffer::new(MAX_TEXTURE_SIZE, MAX_TEXTURE_SIZE);
     buffer.copy_from(&ImageExporter::export(&packer).unwrap(), 0, 0);
     let kind = gfx::texture::Kind::D2(MAX_TEXTURE_SIZE as u16, MAX_TEXTURE_SIZE as u16, gfx::texture::AaMode::Single);
-    let (_, view) = factory.create_texture_immutable_u8::<ColorFormat>(kind, &[&buffer]).unwrap();
+    let (_, view) = factory.create_texture_immutable_u8::<gfx::format::Rgba8>(kind, &[&buffer]).unwrap();
     (view, registry)
 }
 

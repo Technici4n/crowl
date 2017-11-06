@@ -49,11 +49,15 @@ pub fn start() {
     let air = create_block_air();
     let dirt = create_block_cube(["dirt"; 6], &texture_registry);
     let grass = create_block_cube(["grass_side", "grass_side", "grass_side", "grass_side", "grass_top", "dirt"], &texture_registry);
+    let wood = create_block_cube(["wood_side", "wood_side", "wood_side", "wood_side", "wood_top", "wood_top"], &texture_registry);
+    let leaves = create_block_cube(["leaves"; 6], &texture_registry);
 
     let mut br = BlockRegistry::new();
     br.add_block(Box::new(air));
     br.add_block(Box::new(dirt));
     br.add_block(Box::new(grass));
+    br.add_block(Box::new(wood));
+    br.add_block(Box::new(leaves));
 
     let br = Arc::new(br);
     let mut chunks = HashMap::new();

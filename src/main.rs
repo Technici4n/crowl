@@ -5,7 +5,7 @@ const CHUNK_SIZE: usize = 32;
 const RENDER_DIST: i64 = 5;
 
 // TODO: refactor ?
-type ColorFormat = gfx::format::Rgba8;
+type ColorFormat = gfx::format::Srgba8;
 type DepthFormat = gfx::format::DepthStencil;
 
 gfx_defines! {

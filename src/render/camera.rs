@@ -1,7 +1,7 @@
 extern crate cgmath;
 
 use self::cgmath::prelude::*;
-use self::cgmath::{Deg, Matrix4, Point3, Vector3, perspective};
+use self::cgmath::{Deg, Euler, Matrix4, Quaternion, Vector3, perspective};
 use ::input::KeyboardState;
 
 // TODO: Don't hardcode this
@@ -86,25 +86,12 @@ impl Camera {
     }
 
     pub fn get_view_projection(&self) -> Matrix4<f32> {
-        let cam_dir: Vector3<f32> = Vector3 {
-            x: -self.pitch.cos() * self.yaw.sin(),
-            y:  self.pitch.sin(),
-            z: -self.pitch.cos() * self.yaw.cos(),
-        };
-        let right = Vector3 {
-            x: -(self.yaw - Deg(90.0)).sin(),
-            y:  0.0,
-            z: -(self.yaw - Deg(90.0)).cos(),
-        };
-        let up = right.cross(cam_dir);
-
         let proj = perspective(Deg(45.0), self.get_aspect_ratio(), 0.1, 400.0);
-        let view = Matrix4::look_at(
-            Point3::from_vec(self.position),
-            Point3::from_vec(self.position + cam_dir),
-            up);
 
-        proj * view
+        let rotation = Quaternion::from(Euler { x: Deg(0.0), y: self.yaw, z: Deg(0.0) }) * Quaternion::from(Euler { x: self.pitch, y: Deg(0.0), z: Deg(0.0) });
+        let translation = Matrix4::from_translation(self.position);
+
+        proj * (translation * Matrix4::from(rotation)).invert().unwrap()
     }
 
     pub fn get_pos(&self) -> (f32, f32, f32) {

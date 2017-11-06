@@ -20,4 +20,8 @@ If you are interested in contributing, the best you can do for now is reviewing 
 You can also discuss the design of the engine at https://github.com/Technici4n/rust-voxel-game.
 
 ## License
-The code is under the MIT license, the assets are CC-BY-SA.
+The code is under the MIT license, the assets are CC-BY-SA. Texture credits:
+
+Technici4n: _dirt_, _grass\_side_, _grass\_top_
+
+Azercoco: _wood\_side_, _wood\_top_, _leaves_
