@@ -1,3 +1,5 @@
+# MOVED TO [voxel-rs/voxel-rs](https://github.com/voxel-rs/voxel-rs)
+
 # crowl (temporary name)
 Rust voxel engine and game.
 
